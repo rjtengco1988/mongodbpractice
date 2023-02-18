@@ -1,0 +1,16 @@
+{
+  "name": "mongodbpractice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app"
+  },
+  "author": "RJ Tengco",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^5.0.1",
+    "nodemon": "^2.0.20"
+  }
+}
