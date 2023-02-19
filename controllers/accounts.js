@@ -8,9 +8,14 @@ exports.accounts = (req,res) => {
 let accountsArray = [];
 let db = dbConnect.getDb()
 
+const page = req.query.p || 0;
+const accountPerPage = 2;
+
 db.collection('accounts')
 .find()
 .sort({firstName:1})
+.skip(page * accountPerPage)
+.limit(accountPerPage)
 .forEach(accounts => accountsArray.push(accounts))
 .then(()=>{
     res.status(200).json(accountsArray);
