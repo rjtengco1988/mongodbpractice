@@ -1,10 +1,12 @@
 const path = require('path');
 const dbConnect = require('../db.js');
+const {ObjectId} = require('mongodb');
+
 
 exports.accounts = (req,res) => {
-let db = dbConnect.getDb()
-let accountsArray = [];
 
+let accountsArray = [];
+let db = dbConnect.getDb()
 
 db.collection('accounts')
 .find()
@@ -17,5 +19,29 @@ db.collection('accounts')
     res.status(500).json({error:"could not fetch the documents"})
 })
 
+
+};
+
+exports.accountGetById = (req,res) => {
+
+    let db = dbConnect.getDb()
+
+    if(ObjectId.isValid(req.params.id)) {
+
+        db.collection('accounts')
+        .findOne({_id : new ObjectId(req.params.id)})
+        .then(doc=>{
+            res.status(200).json(doc);
+        })
+        .catch(() => {
+            res.status(500).json({error:"Could not fetch document"})
+        })
+
+
+    }else{
+        res.status(500).json({error:"Wrong ID Format"})
+    }
+
+    
 
 }
