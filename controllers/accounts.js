@@ -83,4 +83,32 @@ exports.deleteAccount = (req,res) => {
 
 
 
+};
+
+exports.updateAccount = (req,res) => {
+
+
+
+    let db = dbConnect.getDb()
+    const update = req.body;
+
+    if(ObjectId.isValid(req.params.id)) {
+
+        db.collection('accounts')
+        .updateOne({_id : new ObjectId(req.params.id)}, {$set : update})
+        .then(result=>{ //result will throw the status
+            res.status(200).json(result);
+        })
+        .catch(() => {
+            res.status(500).json({error:"Could not update document"})
+        })
+
+
+    }else{
+        res.status(500).json({error:"Wrong ID Format"})
+    }
+
+
+
+
 }
