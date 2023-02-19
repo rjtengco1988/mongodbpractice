@@ -31,7 +31,7 @@ exports.accountGetById = (req,res) => {
         db.collection('accounts')
         .findOne({_id : new ObjectId(req.params.id)})
         .then(doc=>{
-            res.status(200).json(doc);
+            res.status(200).json(doc); //doc will throw the json of the request body
         })
         .catch(() => {
             res.status(500).json({error:"Could not fetch document"})
@@ -58,5 +58,29 @@ exports.postNewAccounts = (req,res) => {
     .catch(err => {
         res.status(500).json({error: "Could not insert document"});
     })
+
+}
+
+exports.deleteAccount = (req,res) => {
+
+    let db = dbConnect.getDb()
+
+    if(ObjectId.isValid(req.params.id)) {
+
+        db.collection('accounts')
+        .deleteOne({_id : new ObjectId(req.params.id)})
+        .then(result=>{ //result will throw the status
+            res.status(200).json(result);
+        })
+        .catch(() => {
+            res.status(500).json({error:"Could not delete document"})
+        })
+
+
+    }else{
+        res.status(500).json({error:"Wrong ID Format"})
+    }
+
+
 
 }
