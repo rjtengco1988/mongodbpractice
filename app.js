@@ -5,7 +5,6 @@ const dotenv = require("dotenv");
 const app = express();
 dotenv.config();
 
-let db
 
 connectToDb((err) => {
 
@@ -15,7 +14,6 @@ connectToDb((err) => {
         console.log("DB CONNECTED");
     }
 
-    db = getDb();
 
 })
 
