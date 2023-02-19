@@ -16,5 +16,5 @@ connectToDb((err) => {
 
 
 })
-
+app.use(express.json());
 app.use('/',router);

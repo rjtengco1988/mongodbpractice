@@ -45,3 +45,18 @@ exports.accountGetById = (req,res) => {
     
 
 }
+
+exports.postNewAccounts = (req,res) => {
+    let db = dbConnect.getDb()
+    const newAccount = req.body;
+
+    db.collection('accounts')
+    .insertOne(newAccount)
+    .then(result=>{
+        res.status(201).json(result);
+    })
+    .catch(err => {
+        res.status(500).json({error: "Could not insert document"});
+    })
+
+}
